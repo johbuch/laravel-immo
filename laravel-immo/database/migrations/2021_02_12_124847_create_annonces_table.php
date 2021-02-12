@@ -16,7 +16,7 @@ class CreateAnnoncesTable extends Migration
         Schema::create('annonces', function (Blueprint $table) {
             $table->id();
             $table->string('ref_annonce');
-            $table->float('pix_annonce');
+            $table->float('prix_annonce');
             $table->float('surface_habitable');
             $table->integer('nombre_de_piece');
             $table->timestamps();
