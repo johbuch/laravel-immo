@@ -15,7 +15,7 @@ class AnnonceController extends Controller
     {
 
         // récupération de toutes les annonces en BDD
-        $annonces = Annonce::all();
+        $annonces = Annonce::all()->sortByDesc('id');
 
         return view('admin.annonce.browse', compact('annonces'));
     }
@@ -59,8 +59,10 @@ class AnnonceController extends Controller
 
     /**
      * affichage du formulaire de modification d'une annonce
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit(Annonce $annonce, $id)
+    public function edit($id)
     {
         $annonce = Annonce::find($id);
 
@@ -69,8 +71,11 @@ class AnnonceController extends Controller
 
     /**
      * modification d'une annonce existante
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Annonce $annonce, Request $request)
+    public function update(Request $request, $id)
     {
         // validation des données
         $validated = $request->validate([
@@ -80,6 +85,8 @@ class AnnonceController extends Controller
             'nombre_de_piece' => 'required',
         ]);
 
+        $annonce = Annonce::find($id);
+
         $annonce->ref_annonce = $request->input('ref_annonce');
         $annonce->prix_annonce = $request->input('prix_annonce');
         $annonce->surface_habitable = $request->input('surface_habitable');
@@ -88,6 +95,22 @@ class AnnonceController extends Controller
         $annonce->save();
 
         // redirection
-        return redirect()->route('admin_annonces_browse')->with('success', 'L\'annonce a bien été ajoutée en base de données');
+        return redirect()->route('admin_annonces_browse')->with('success', 'L\'annonce a bien été modifiée en base de données');
+    }
+
+    /**
+     * Suppression d'une annonce
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function delete($id)
+    {
+//        Annonce::destroy($id);
+
+        $annonce = Annonce::findOrFail($id);
+//        dd($annonce);
+        $annonce->delete();
+
+        return redirect()->route('admin_annonces_browse')->with('success', 'L\'annonce a bien été supprimée de la base de données');
     }
 }

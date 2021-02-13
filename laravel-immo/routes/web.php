@@ -34,6 +34,7 @@ Route::prefix('admin/annonces')->group(function() {
         Route::get('/edit/{id}', [AnnonceController::class, 'edit'])->name('edit');
         Route::patch('/edit/{id}', [AnnonceController::class, 'update'])->name('update');
         // page delete
+        Route::delete('/delete/{id}', [AnnonceController::class, 'delete'])->name('delete');
     });
 });
 

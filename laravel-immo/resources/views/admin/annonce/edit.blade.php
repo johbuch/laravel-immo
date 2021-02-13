@@ -6,7 +6,7 @@
             <a href="{{ route('admin_annonces_browse')  }}"><button type="button" class="btn btn-primary">Retour</button></a>
         </div>
 
-        <form action="{{ route('admin_annonces_update', ['id' => $annonce->id]) }}" method="POST">
+        <form action="{{ route('admin_annonces_update', $annonce->id) }}" method="POST">
             @csrf
             @method('PATCH')
             <div class="form-group">
