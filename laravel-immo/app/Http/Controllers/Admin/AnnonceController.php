@@ -60,9 +60,11 @@ class AnnonceController extends Controller
     /**
      * affichage du formulaire de modification d'une annonce
      */
-    public function edit(Annonce $annonce)
+    public function edit(Annonce $annonce, $id)
     {
-        return view('admin.annonce.edit');
+        $annonce = Annonce::find($id);
+
+        return view('admin.annonce.edit', compact('annonce'));
     }
 
     /**
@@ -70,6 +72,22 @@ class AnnonceController extends Controller
      */
     public function update(Annonce $annonce, Request $request)
     {
-        return view('admin.annonce.edit');
+        // validation des données
+        $validated = $request->validate([
+            'ref_annonce' => 'required',
+            'prix_annonce' => 'required',
+            'surface_habitable' => 'required',
+            'nombre_de_piece' => 'required',
+        ]);
+
+        $annonce->ref_annonce = $request->input('ref_annonce');
+        $annonce->prix_annonce = $request->input('prix_annonce');
+        $annonce->surface_habitable = $request->input('surface_habitable');
+        $annonce->nombre_de_piece = $request->input('nombre_de_piece');
+
+        $annonce->save();
+
+        // redirection
+        return redirect()->route('admin_annonces_browse')->with('success', 'L\'annonce a bien été ajoutée en base de données');
     }
 }

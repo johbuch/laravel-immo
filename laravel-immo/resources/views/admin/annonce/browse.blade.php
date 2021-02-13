@@ -28,8 +28,11 @@
                     <td>{{ $annonce->created_at }}</td>
                     <td>{{ $annonce->updated_at }}</td>
                     <td>
-                        <a href="{{ route('admin_annonces_edit', $annonce->id)  }}"><button type="button" class="btn btn-primary">Modifier</button></a>
-                        <a href=""><button type="button" class="btn btn-danger">Supprimer</button></a>
+                        <form action="POST" action="">
+                            <a href="{{ route('admin_annonces_edit', $annonce->id) }}"><button type="button" class="btn btn-primary">Modifier</button></a>
+                            @csrf
+                            <a href=""><button type="button" class="btn btn-danger">Supprimer</button></a>
+                        </form>
                     </td>
                 </tr>
             @endforeach

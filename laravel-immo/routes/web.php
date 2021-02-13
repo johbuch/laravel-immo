@@ -32,7 +32,7 @@ Route::prefix('admin/annonces')->group(function() {
         Route::post('/add', [AnnonceController::class, 'store'])->name('store');
         // page edit
         Route::get('/edit/{id}', [AnnonceController::class, 'edit'])->name('edit');
-        Route::post('/edit/{id}', [AnnonceController::class, 'update'])->name('update');
+        Route::patch('/edit/{id}', [AnnonceController::class, 'update'])->name('update');
         // page delete
     });
 });
