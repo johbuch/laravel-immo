@@ -1,6 +1,5 @@
 @extends('base')
 @section('content')
-    <h1>Homepage</h1>
     <div class="container">
         <h2 class="text-center">Découvrez toutes nos annonces</h2>
         <div class="row">
