@@ -36,7 +36,7 @@
                             <td>{{ $annonce->updated_at }}</td>
                             <td>
                                 <a href="{{ route('admin_annonces_edit', $annonce->id) }}"><button type="button" class="main__action btn btn-primary"><i class="fas fa-edit"></i></button></a>
-                                <form method="POST" action="{{ route('admin_annonces_delete', $annonce->id) }}" class="main__action">
+                                <form method="POST" action="{{ route('admin_annonces_delete', $annonce->id) }}" class="main__action" id="form-delete">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>

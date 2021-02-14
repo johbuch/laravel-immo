@@ -1842,6 +1842,24 @@ module.exports = {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+var app = {
+  init: function init() {
+    console.log('application initialisée');
+    var deleteForm = document.getElementById('form-delete');
+    deleteForm.addEventListener('submit', app.handleFormSubmit);
+  },
+  handleFormSubmit: function handleFormSubmit(event) {
+    var confirmation = window.confirm('Etes-vous sur de vouloir supprimer cette annonce ?');
+
+    if (confirmation) {
+      return true;
+    } else {
+      event.preventDefault();
+    }
+  }
+};
+document.addEventListener('DOMContentLoaded', app.init);
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
