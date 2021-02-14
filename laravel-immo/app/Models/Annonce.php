@@ -22,6 +22,7 @@ class Annonce extends Model
         'ref_annonce',
         'prix_annonce',
         'surface_habitable',
+        'nombre_de_piece',
         'created_at',
         'updated_at',
     ];

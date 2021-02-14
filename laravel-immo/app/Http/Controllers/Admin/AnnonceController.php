@@ -15,7 +15,7 @@ class AnnonceController extends Controller
     {
         // récupération de toutes les annonces en BDD, avec un tri et pagination
         // du paquet Kyslik/column-sortable
-        $annonces = Annonce::sortable('id')->paginate(5);
+        $annonces = Annonce::sortable('id')->paginate(15);
 
         return view('admin.annonce.browse', compact('annonces'));
     }
