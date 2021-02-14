@@ -12,37 +12,40 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">ref_annonce</th>
-                    <th scope="col">prix annonce</th>
-                    <th scope="col">surface habitable</th>
-                    <th scope="col">nombre de pièce</th>
-                    <th scope="col">created_at</th>
-                    <th scope="col">updated_at</th>
+                    <th scope="col">@sortablelink('id',)</th>
+                    <th scope="col">@sortablelink('ref_annonce', 'Ref Annonce')</th>
+                    <th scope="col">@sortablelink('prix_annonce', 'Prix Annonce')</th>
+                    <th scope="col">@sortablelink('surface_habitable', 'Surface Habitable')</th>
+                    <th scope="col">@sortablelink('nombre_de_piece', 'Nombre de pièce')</th>
+                    <th scope="col">@sortablelink('created_at', 'Created At')</th>
+                    <th scope="col">@sortablelink('updated_at', 'Updated At')</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
-            @foreach($annonces as $annonce)
-                <tr class="table-light">
-                    <th scope="row">{{ $annonce->id }}</th>
-                    <td>{{ $annonce->ref_annonce }}</td>
-                    <td>{{ $annonce->prix_annonce }}</td>
-                    <td>{{ $annonce->surface_habitable }}</td>
-                    <td>{{ $annonce->nombre_de_piece }}</td>
-                    <td>{{ $annonce->created_at }}</td>
-                    <td>{{ $annonce->updated_at }}</td>
-                    <td>
-                        <a href="{{ route('admin_annonces_edit', $annonce->id) }}"><button type="button" class="btn btn-primary">Modifier</button></a>
-                        <form method="POST" action="{{ route('admin_annonces_delete', $annonce->id) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Supprimer</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
+            @if($annonces->count())
+                @foreach($annonces as $annonce)
+                    <tr class="table-light">
+                        <th scope="row">{{ $annonce->id }}</th>
+                        <td>{{ $annonce->ref_annonce }}</td>
+                        <td>{{ $annonce->prix_annonce }}</td>
+                        <td>{{ $annonce->surface_habitable }}</td>
+                        <td>{{ $annonce->nombre_de_piece }}</td>
+                        <td>{{ $annonce->created_at }}</td>
+                        <td>{{ $annonce->updated_at }}</td>
+                        <td>
+                            <a href="{{ route('admin_annonces_edit', $annonce->id) }}"><button type="button" class="btn btn-primary">Modifier</button></a>
+                            <form method="POST" action="{{ route('admin_annonces_delete', $annonce->id) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            @endif
             </tbody>
         </table>
+        {!! $annonces->appends(\Request::except('page'))->render() !!}
     </div>
 @endsection
