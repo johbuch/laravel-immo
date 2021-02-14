@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class MainController extends Controller
 {
     public function browse() {
-        $annonces = Annonce::all();
+        $annonces = Annonce::all()->sortByDesc('id');
         return view('main.browse', compact('annonces'));
     }
 }
