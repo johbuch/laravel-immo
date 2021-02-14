@@ -1861,7 +1861,6 @@ var app = {
 document.addEventListener('DOMContentLoaded', app.init);
 
 /***/ }),
-
 /***/ "./resources/js/bootstrap.js":
 /*!***********************************!*\
   !*** ./resources/js/bootstrap.js ***!
