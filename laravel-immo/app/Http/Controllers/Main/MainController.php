@@ -12,4 +12,9 @@ class MainController extends Controller
         $annonces = Annonce::all()->sortByDesc('id');
         return view('main.browse', compact('annonces'));
     }
+
+    public function getAllAnnonceOrderByPrice()
+    {
+        $annonces = Annonce::All()->sortBy('prix_annonce');
+    }
 }

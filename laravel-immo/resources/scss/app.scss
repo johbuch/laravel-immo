@@ -1,0 +1,66 @@
+$fa-font-path:        "../webfonts";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import "~@fortawesome/fontawesome-free/scss/brands";
+@import "~@fortawesome/fontawesome-free/scss/regular";
+
+// personnalisation des couleurs de Bootstrap (à mettre avant l'import)
+$primary: #1cbedb;
+$secondary:#F3969A;
+$success: #1C923E;
+$info: #4E5D6C;
+$danger:#F3969A;
+$light: #FFF;
+
+//$bg-primary: $primary;
+
+// import Bootstrap 4.6
+@import "~bootstrap/scss/bootstrap";
+
+body {
+    font-family: 'Nunito', sans-serif;
+}
+
+/* ---- HEADER ---- */
+.header {
+    .nav {
+        height: 10vh;
+
+        &__company {
+            color: $light;
+            &:hover {
+                color: $info;
+                border-bottom: 2px solid $info;
+            }
+        }
+
+        .menu__list {
+            margin: auto;
+            &__item {
+                color: $light;
+                &:hover {
+                    color: $info;
+                    border-bottom: 2px solid $info;
+                }
+            }
+        }
+    }
+}
+
+/* ---- MAIN SECTION ----*/
+.main {
+    margin-top:12vh;
+
+    h2 {
+        margin-bottom: 2rem;
+
+    }
+
+    &__action {
+        display: inline;
+    }
+
+    .pagination {
+        justify-content: center;
+    }
+}
