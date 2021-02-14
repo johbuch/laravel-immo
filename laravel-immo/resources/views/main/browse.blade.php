@@ -1,12 +1,12 @@
 @extends('base')
 @section('content')
-    <div class="container">
+    <main class="container main">
         <h2 class="text-center">Découvrez toutes nos annonces</h2>
         <div class="row">
             @foreach($annonces as $annonce)
                 <div class="col-4">
-                    <div class="card border-info mb-3">
-                        <img class="card-img-top" src="https://picsum.photos/200" alt="Card image cap">
+                    <div class="main__card card border-info mb-3">
+                        <img class="card-img-top" src="https://picsum.photos/100" alt="Card image cap">
                         <div class="card-body">
                             <div>Référence : {{ $annonce->ref_annonce }}</div>
                             <div>Prix : {{ $annonce->prix_annonce }} €</div>
@@ -17,5 +17,5 @@
                 </div>
             @endforeach
         </div>
-    </div>
+    </main>
 @endsection

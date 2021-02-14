@@ -1,6 +1,6 @@
 @extends('base')
 @section('content')
-    <div class="container">
+    <main class="container main">
         <h2>Modifier une annonce</h2>
         <div class="d-flex justify-content-end mt-4 mb-4">
             <a href="{{ route('admin_annonces_browse')  }}"><button type="button" class="btn btn-primary">Retour</button></a>
@@ -32,5 +32,5 @@
 
             <button type="submit" class="btn btn-primary">Ajouter</button>
         </form>
-    </div>
+    </main>
 @endsection

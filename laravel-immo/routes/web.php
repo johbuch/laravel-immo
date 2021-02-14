@@ -15,12 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// HOMEPAGE
-Route::get(
-    '/',
-    [MainController::class, 'browse']
-    )->name('main_browse')
-;
+Route::prefix('')->group(function() {
+    Route::name('main_')->group(function() {
+        // homepage
+        Route::get('/', [MainController::class, 'browse'])->name('browse');
+    });
+});
 
 // ADMIN pour le crud Annonce
 Route::prefix('admin/annonces')->group(function() {
