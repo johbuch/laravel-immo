@@ -3,7 +3,7 @@ require('./bootstrap');
 let app = {
     init: function()
     {
-        console.log('application initialisée');
+        // console.log('application initialisée');
         let deleteForm = document.getElementById('form-delete');
         deleteForm.addEventListener('submit', app.handleFormSubmit);
     },

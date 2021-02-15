@@ -16171,3 +16171,14 @@ body {
 .main .pagination {
   justify-content: center;
 }
+
+.footer {
+  height: 10vh;
+  width: 100%;
+  background-color: #1cbedb;
+  color: #FFF;
+}
+.footer__block {
+  padding-top: 3vh;
+  text-align: center;
+}
