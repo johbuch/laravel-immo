@@ -3,6 +3,7 @@
     <main class="container main">
         <h2 class="text-center">Découvrez toutes nos annonces</h2>
         <div class="row">
+            {{-- boucle sur le tableau pour récupérer chaque annonce --}}
             @foreach($annonces as $annonce)
                 <div class="col-4">
                     <div class="main__card card border-info mb-3">

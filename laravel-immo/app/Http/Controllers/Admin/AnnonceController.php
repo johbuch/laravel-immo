@@ -31,6 +31,7 @@ class AnnonceController extends Controller
     /**
      * ajout de l'annonce en BDD
      * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -64,6 +65,7 @@ class AnnonceController extends Controller
      */
     public function edit($id)
     {
+        // récupération des données de l'annonce
         $annonce = Annonce::find($id);
 
         return view('admin.annonce.edit', compact('annonce'));
@@ -85,6 +87,7 @@ class AnnonceController extends Controller
             'nombre_de_piece' => 'required',
         ]);
 
+        // mise à jour de l'annonce en bdd si les données précédentes sont validées
         $annonce = Annonce::find($id);
 
         $annonce->ref_annonce = $request->input('ref_annonce');
@@ -105,10 +108,8 @@ class AnnonceController extends Controller
      */
     public function delete($id)
     {
-//        Annonce::destroy($id);
-
         $annonce = Annonce::findOrFail($id);
-//        dd($annonce);
+
         $annonce->delete();
 
         return redirect()->route('admin_annonces_browse')->with('success', 'L\'annonce a bien été supprimée de la base de données');

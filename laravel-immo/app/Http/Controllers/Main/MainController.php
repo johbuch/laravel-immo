@@ -9,12 +9,9 @@ use Illuminate\Http\Request;
 class MainController extends Controller
 {
     public function browse() {
+        // récupération de toutes les annonces triées par l'ID
         $annonces = Annonce::all()->sortByDesc('id');
-        return view('main.browse', compact('annonces'));
-    }
 
-    public function getAllAnnonceOrderByPrice()
-    {
-        $annonces = Annonce::All()->sortBy('prix_annonce');
+        return view('main.browse', compact('annonces'));
     }
 }

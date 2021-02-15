@@ -5,6 +5,7 @@
         <div class="d-flex justify-content-end mt-4 mb-4">
             <a href="{{ route('admin_annonces_add')  }}"><button type="button" class="btn btn-primary">Ajouter une nouvelle annonce</button></a>
         </div>
+        {{-- affichage des messages de succès lorsqu'il y en a un à afficher --}}
         @if(Session::has('success'))
             <div class="alert alert-success" role="alert">
                 {{ Session::get('success') }}
@@ -13,6 +14,7 @@
         <table class="main__table table table-hover">
             <thead>
                 <tr>
+                    {{-- utilisation de @sortablelink pour avoir le tri des colonnes --}}
                     <th scope="col">@sortablelink('id', 'Id')</th>
                     <th scope="col">@sortablelink('ref_annonce', 'Ref Annonce')</th>
                     <th scope="col">@sortablelink('prix_annonce', 'Prix Annonce')</th>
@@ -25,6 +27,7 @@
             </thead>
             <tbody>
                 @if($annonces->count())
+                    {{-- boucle sur le tableau pour récupérer chaque ligne --}}
                     @foreach($annonces as $annonce)
                         <tr class="table-light">
                             <th scope="row">{{ $annonce->id }}</th>
