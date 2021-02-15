@@ -16144,8 +16144,8 @@ body {
   color: #FFF;
 }
 .header .nav__company:hover {
-  color: #4E5D6C;
   border-bottom: 2px solid #4E5D6C;
+  color: #4E5D6C;
 }
 .header .nav .menu__list {
   margin: auto;
@@ -16154,8 +16154,8 @@ body {
   color: #FFF;
 }
 .header .nav .menu__list__item:hover {
-  color: #4E5D6C;
   border-bottom: 2px solid #4E5D6C;
+  color: #4E5D6C;
 }
 
 /* ---- MAIN SECTION ----*/
@@ -16173,10 +16173,11 @@ body {
 }
 
 .footer {
-  height: 10vh;
-  width: 100%;
   background-color: #1cbedb;
   color: #FFF;
+  height: 10vh;
+  margin-top: 2vh;
+  width: 100%;
 }
 .footer__block {
   padding-top: 3vh;

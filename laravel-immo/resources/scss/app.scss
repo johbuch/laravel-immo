@@ -29,8 +29,8 @@ body {
         &__company {
             color: $light;
             &:hover {
-                color: $info;
                 border-bottom: 2px solid $info;
+                color: $info;
             }
         }
 
@@ -39,8 +39,8 @@ body {
             &__item {
                 color: $light;
                 &:hover {
-                    color: $info;
                     border-bottom: 2px solid $info;
+                    color: $info;
                 }
             }
         }
@@ -66,10 +66,11 @@ body {
 }
 
 .footer {
-    height: 10vh;
-    width: 100%;
     background-color: $primary;
     color: $light;
+    height: 10vh;
+    margin-top: 2vh;
+    width: 100%;
 
     &__block {
         padding-top: 3vh;

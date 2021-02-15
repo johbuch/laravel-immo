@@ -1844,7 +1844,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 var app = {
   init: function init() {
-    // console.log('application initialisée');
+    console.log('application initialisée');
     var deleteForm = document.getElementById('form-delete');
     deleteForm.addEventListener('submit', app.handleFormSubmit);
   },
