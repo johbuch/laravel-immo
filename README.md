@@ -18,3 +18,7 @@ Dans l'administration, la page listant les annonces peut être triée en fonctio
 4. Créer les migrations avec la commande `php artisan migrate`
 5. Charger les données tests grâce aux seeds avec la commande `php artisan db:seed`
 6. Lancer le serveur local avec la commande `php artisan serve`
+
+
+## Poursuite du projet
+Le projet est devenu complètement dynamique sur une seule page en utilisant des appels AJAX avec l'API Fetch.

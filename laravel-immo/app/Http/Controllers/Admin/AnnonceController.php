@@ -17,7 +17,6 @@ class AnnonceController extends Controller
         // du paquet Kyslik/column-sortable
 //        $annonces = Annonce::sortable('id')->paginate(15);
 
-
         $annonces = Annonce::all()->sortByDesc('id');
 
         return view('admin.annonce.browse', compact('annonces'));

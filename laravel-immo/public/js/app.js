@@ -1844,7 +1844,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 var app = {
   init: function init() {
-    console.log('application initialisée');
+    // console.log('application initialisée');
+    // ajout des eventListeners sur les boutons et formulaires
     document.querySelectorAll('.btn-delete').forEach(function (item) {
       item.addEventListener('click', app.handleDeleteClick);
     });
@@ -1856,13 +1857,20 @@ var app = {
     var editAnnonceForm = document.getElementById('editForm');
     editAnnonceForm.addEventListener('submit', app.handleFormEditSubmit);
   },
+
+  /**
+   * on gère l'événement lié au du bouton delete
+   * @param evt
+   */
   handleDeleteClick: function handleDeleteClick(evt) {
-    console.log('click delete');
+    // console.log('click delete')
+    // on récupère la cible de l'événement
     var element = evt.currentTarget;
     var url = element.href;
     var config = {
       method: 'DELETE'
-    };
+    }; // on consomme l'API
+
     fetch(url, config).then(function (response) {
       return response.json();
     }).then(function (data) {
@@ -1878,6 +1886,11 @@ var app = {
     });
     evt.preventDefault();
   },
+
+  /**
+   * on gère l'événement lorsque le formulaire d'ajout est envoyé
+   * @param event
+   */
   handleFormAddSubmit: function handleFormAddSubmit(event) {
     event.preventDefault();
     fetch('http://localhost:8000/api/annonces/add', {
@@ -1927,6 +1940,11 @@ var app = {
       form.reset();
     });
   },
+
+  /**
+   * on gère l'événement lorsque le formulaire d'édition d'une annonce est envoyé
+   * @param event
+   */
   handleFormEditSubmit: function handleFormEditSubmit(event) {
     event.preventDefault(); // récupération des informations du formulaire
 
@@ -1956,6 +1974,11 @@ var app = {
       lineToEdit.querySelector('[data-updated=updated-at]').textContent = data.updated_at;
     });
   },
+
+  /**
+   * on gère l'événement lié au clic du bouton d'édition
+   * @param event
+   */
   handleClickOnEditButton: function handleClickOnEditButton(event) {
     // console.log('click edit');
     var element = event.currentTarget; // console.log(element);
@@ -1976,59 +1999,6 @@ var app = {
       var surfaceHabitable = document.querySelector('#editForm input.surface-habitable').value = data.surface_habitable;
       var nombreDePiece = document.querySelector('#editForm input.nombre-de-piece').value = data.nombre_de_piece;
       var annonceId = document.querySelector('#editForm input.annonce-id').value = data.id;
-    });
-  },
-  addAnnonceToDom: function addAnnonceToDom(id, refAnnonce, prixAnnonce, surfaceHabitable, nombreDePiece, createdAt, updatedAt) {
-    // récupérer le template d'une annonce
-    var template = document.getElementById('template-annonce'); // cloner le contenu du template
-
-    var newAnnonce = template.content.cloneNode(true);
-    var annonceElement = newAnnonce.querySelector('.line-template'); // affichage des données de l'annonce
-
-    annonceElement.querySelector('.annonce-id').textContent = id;
-    annonceElement.querySelector('.annonce-ref').textContent = refAnnonce;
-    annonceElement.querySelector('.annonce-prix').textContent = prixAnnonce;
-    annonceElement.querySelector('.annonce-surface').textContent = surfaceHabitable;
-    annonceElement.querySelector('.annonce-piece').textContent = nombreDePiece;
-    annonceElement.querySelector('.annonce-created-at').textContent = createdAt;
-    annonceElement.querySelector('.annonce-updated-at').textContent = updatedAt; // ajout de la ligne dans le DOM
-
-    template.parentNode.appendChild(newAnnonce);
-  },
-
-  /**
-   * création de l'annonce en utilisant l'API
-   */
-  createAnnonce: function createAnnonce(refAnnonce, prixAnnonce, surfaceHabitable, nombreDePiece) {
-    var token = document.querySelector('meta[name="csrf-token"]'); // on stocke les données à transférer
-
-    var data = {
-      refAnnonce: refAnnonce,
-      prixAnnonce: prixAnnonce,
-      surfaceHabitable: surfaceHabitable,
-      nombreDePiece: nombreDePiece
-    }; // on prépare les entêtes HTTP de la requête
-
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json"); // on consomme l'API
-
-    var fetchOptions = {
-      method: 'POST',
-      // mode: 'cors',
-      // cache: 'no-cache',
-      // on ajoute les headers dans les options
-      // headers: myHeaders,
-      body: JSON.stringify(data)
-    }; //on exécute la requête
-
-    fetch('http://localhost:8000/api/annonces/add', fetchOptions).then(function (response) {
-      console.log(response);
-      return response.json();
-    }).then(function (data) {
-      console.log(data.message); // on obtiens le contenu de la réponse
-      // console.log('data: ', data);
-      // on ajoute la nouvelle annonce dans le DOM en utilisant la fonction addAnnonceToDom
-      // app.addAnnonceToDom(data.id, data.refAnnonce, data.prixAnnonce, data.surfaceHabitable, data.nombreDePiece);
     });
   }
 };

@@ -16,15 +16,6 @@
         <table class="main__table table table-hover">
             <thead>
             <tr>
-                {{-- utilisation de @sortablelink pour avoir le tri des colonnes --}}
-{{--                <th scope="col">@sortablelink('id', 'Id')</th>--}}
-{{--                <th scope="col">@sortablelink('ref_annonce', 'Ref Annonce')</th>--}}
-{{--                <th scope="col">@sortablelink('prix_annonce', 'Prix Annonce')</th>--}}
-{{--                <th scope="col">@sortablelink('surface_habitable', 'Surface Habitable')</th>--}}
-{{--                <th scope="col">@sortablelink('nombre_de_piece', 'Nombre de pièce')</th>--}}
-{{--                <th scope="col">@sortablelink('created_at', 'Created At')</th>--}}
-{{--                <th scope="col">@sortablelink('updated_at', 'Updated At')</th>--}}
-{{--                <th scope="col" width="150px">Actions</th>--}}
                 <th scope="col">Id</th>
                 <th scope="col">Ref Annonce</th>
                 <th scope="col">Prix Annonce</th>
@@ -162,7 +153,6 @@
                 </div>
             </div>
         </div>
-
 {{--        <div class="pagination">--}}
 {{--            {!! $annonces->appends(\Request::except('page'))->render() !!}--}}
 {{--        </div>--}}

@@ -3,7 +3,6 @@
     <head>
         <meta charset="UTF-8">
         <title>Lavarel immo</title>
-{{--        <meta name="csrf-token" content="{{ csrf_token() }}">--}}
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">

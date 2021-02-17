@@ -14,12 +14,8 @@ class AnnonceController extends Controller
      */
     public function browse()
     {
-        // récupération de toutes les annonces en BDD, avec un tri et pagination
-        // du paquet Kyslik/column-sortable
-//        $annonces = Annonce::sortable('id')->paginate(15);
-
         $annonces = Annonce::all()->sortByDesc('id');
-//        return response()->json($annonces);
+
         return new AnnonceResource($annonces);
     }
 
@@ -55,9 +51,7 @@ class AnnonceController extends Controller
 
         $annonce->save();
 
-//        return response()->json(['message'=> 'annonce ajoutée']);
         return response()->json($annonce);
-//        return new AnnonceResource($annonce);
     }
 
     /**
@@ -85,7 +79,6 @@ class AnnonceController extends Controller
 
         $annonce->save();
 
-//        return new AnnonceResource($annonce);
         return response()->json($annonce);
     }
 
@@ -99,9 +92,5 @@ class AnnonceController extends Controller
         $annonce->delete();
 
         return response()->json(['message' => 'supprime']);
-
-
-//        return new AnnonceResource($annonce);
-
     }
 }
