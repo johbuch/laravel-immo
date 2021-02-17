@@ -39,14 +39,14 @@
             @if($annonces->count())
                 {{-- boucle sur le tableau pour récupérer chaque ligne --}}
                 @foreach($annonces as $annonce)
-                    <tr class="table-light">
+                    <tr class="table-light" data-id="{{ $annonce->id }}">
                         <th scope="row">{{ $annonce->id }}</th>
-                        <td>{{ $annonce->ref_annonce }}</td>
-                        <td>{{ $annonce->prix_annonce }}</td>
-                        <td>{{ $annonce->surface_habitable }}</td>
-                        <td>{{ $annonce->nombre_de_piece }}</td>
-                        <td>{{ $annonce->created_at }}</td>
-                        <td>{{ $annonce->updated_at }}</td>
+                        <td data-ref="ref">{{ $annonce->ref_annonce }}</td>
+                        <td data-prix="prix">{{ $annonce->prix_annonce }}</td>
+                        <td data-surface="surface">{{ $annonce->surface_habitable }}</td>
+                        <td data-piece="piece">{{ $annonce->nombre_de_piece }}</td>
+                        <td data-created="created-at">{{ $annonce->created_at }}</td>
+                        <td data-updated="updated-at">{{ $annonce->updated_at }}</td>
                         <td>
                             <a href="{{ route('api_annonces_show', $annonce->id) }}" data-toggle="modal" data-target="#editAnnonceModal" class="btn btn-primary btn-edit"><i class="fas fa-edit"></i></a>
 {{--                            <a href="{{ route('admin_annonces_edit', $annonce->id) }}" class="main__action btn btn-primary"><i class="fas fa-edit"></i></a>--}}

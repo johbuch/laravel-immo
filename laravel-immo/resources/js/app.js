@@ -120,29 +120,35 @@ let app = {
                 return response.json();
             })
             .then (function (data) {
-                console.log(data.created_at);
+                console.log(data.id);
+
+                // utilisation des datasets pour identifier la ligne à éditer et faire les modifications
+                let lineToEdit = document.querySelector('[data-id="' + data.id + '"]');
+                // console.log(lineToEdit);
+                lineToEdit.querySelector('[data-ref=ref]').textContent = data.ref_annonce;
+                lineToEdit.querySelector('[data-prix=prix]').textContent = data.prix_annonce;
+                lineToEdit.querySelector('[data-surface=surface]').textContent = data.surface_habitable;
+                lineToEdit.querySelector('[data-piece=piece]').textContent = data.nombre_de_piece;
+                lineToEdit.querySelector('[data-updated=updated-at]').textContent = data.updated_at;
 
                 // récupérer le template d'une annonce
-                let template = document.getElementById('template-annonce');
+                // let template = document.getElementById('template-annonce');
 
                 // cloner le contenu du template
-                let newAnnonce = template.content.cloneNode(true);
+                // let newAnnonce = template.content.cloneNode(true);
 
-                let annonceElement = newAnnonce.querySelector('.line-template');
+                // let annonceElement = newAnnonce.querySelector('.line-template');
 
                 // affichage des données de l'annonce
-                annonceElement.querySelector('.annonce-id').textContent = data.id;
-                annonceElement.querySelector('.annonce-ref').textContent = data.ref_annonce;
-                annonceElement.querySelector('.annonce-prix').textContent = data.prix_annonce;
-                annonceElement.querySelector('.annonce-surface').textContent = data.surface_habitable;
-                annonceElement.querySelector('.annonce-piece').textContent = data.nombre_de_piece;
-                annonceElement.querySelector('.annonce-created-at').textContent = data.created_at;
-                annonceElement.querySelector('.annonce-updated-at').textContent = data.updated_at;
+                // annonceElement.querySelector('.annonce-id').textContent = data.id;
+                // annonceElement.querySelector('.annonce-ref').textContent = data.ref_annonce;
+                // annonceElement.querySelector('.annonce-prix').textContent = data.prix_annonce;
+                // annonceElement.querySelector('.annonce-surface').textContent = data.surface_habitable;
+                // annonceElement.querySelector('.annonce-piece').textContent = data.nombre_de_piece;
+                // annonceElement.querySelector('.annonce-created-at').textContent = data.created_at;
+                // annonceElement.querySelector('.annonce-updated-at').textContent = data.updated_at;
 
-                // ajout du clone dans le DOM
-                template.parentNode.appendChild(newAnnonce);
             });
-
     },
 
     handleClickOnEditButton: function(event) {
