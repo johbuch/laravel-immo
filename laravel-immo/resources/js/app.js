@@ -8,19 +8,15 @@ let app = {
         document.querySelectorAll('.btn-delete').forEach(item => {
             item.addEventListener('click', app.handleDeleteClick);
         })
+        document.querySelectorAll('.btn-edit').forEach(item => {
+            item.addEventListener('click', app.handleClickOnEditButton);
+        })
 
         let addAnnonceForm = document.getElementById('addForm');
         addAnnonceForm.addEventListener('submit', app.handleFormAddSubmit);
 
         let editAnnonceForm = document.getElementById('editForm');
         editAnnonceForm.addEventListener('submit', app.handleFormEditSubmit);
-
-        document.querySelectorAll('.btn-edit').forEach(item => {
-            item.addEventListener('click', app.handleClickOnEditButton);
-        })
-
-        // chargement des annonces
-        // app.loadAnnonces();
     },
 
     handleDeleteClick: function(evt) {
@@ -75,6 +71,7 @@ let app = {
                 let newAnnonce = template.content.cloneNode(true);
 
                 let annonceElement = newAnnonce.querySelector('.line-template');
+                // console.log(annonceElement);
 
                 // affichage des données de l'annonce
                 annonceElement.querySelector('.annonce-id').textContent = data.id;
@@ -84,6 +81,22 @@ let app = {
                 annonceElement.querySelector('.annonce-piece').textContent = data.nombre_de_piece;
                 annonceElement.querySelector('.annonce-created-at').textContent = data.created_at;
                 annonceElement.querySelector('.annonce-updated-at').textContent = data.updated_at;
+
+                // ajout des dataset
+                annonceElement.setAttribute('data-id', data.id);
+
+                // ajout des liens dans le boutons edit et delete
+                let editButton = annonceElement.querySelector('.btn-edit');
+                let editRoute = "http://localhost:8000/api/annonces/";
+                editButton.href = editRoute + data.id;
+
+                let deleteButton = annonceElement.querySelector('.btn-delete');
+                let deleteRoute = "http://localhost:8000/api/annonces/delete/";
+                deleteButton.href = deleteRoute + data.id;
+
+                // ajout des eventListeners sur les nouveaux boutons
+                deleteButton.addEventListener('click', app.handleDeleteClick);
+                editButton.addEventListener('click', app.handleClickOnEditButton);
 
                 let tableBody = document.querySelector('tbody');
                 // on récupère la première lige du tableau
@@ -130,24 +143,6 @@ let app = {
                 lineToEdit.querySelector('[data-surface=surface]').textContent = data.surface_habitable;
                 lineToEdit.querySelector('[data-piece=piece]').textContent = data.nombre_de_piece;
                 lineToEdit.querySelector('[data-updated=updated-at]').textContent = data.updated_at;
-
-                // récupérer le template d'une annonce
-                // let template = document.getElementById('template-annonce');
-
-                // cloner le contenu du template
-                // let newAnnonce = template.content.cloneNode(true);
-
-                // let annonceElement = newAnnonce.querySelector('.line-template');
-
-                // affichage des données de l'annonce
-                // annonceElement.querySelector('.annonce-id').textContent = data.id;
-                // annonceElement.querySelector('.annonce-ref').textContent = data.ref_annonce;
-                // annonceElement.querySelector('.annonce-prix').textContent = data.prix_annonce;
-                // annonceElement.querySelector('.annonce-surface').textContent = data.surface_habitable;
-                // annonceElement.querySelector('.annonce-piece').textContent = data.nombre_de_piece;
-                // annonceElement.querySelector('.annonce-created-at').textContent = data.created_at;
-                // annonceElement.querySelector('.annonce-updated-at').textContent = data.updated_at;
-
             });
     },
 
@@ -180,35 +175,6 @@ let app = {
             );
     },
 
-    // loadAnnonces: function() {
-    //     console.log('load annonces');
-    //
-    //     // préparation de la configuration de la requête HTTP
-    //     let config = {
-    //         method: 'GET',
-    //         mode: 'cors',
-    //         cache: 'no-cache'
-    //     };
-    //
-    //     // déclenchement de la requête HTTP avec AJAX
-    //     fetch('http://localhost:8000/api/annonces', config)
-    //         // on reçoit la réponse en JSON
-    //         .then(function(response) {
-    //             // console.log(response);
-    //             // on convertit la réponse en un objet JS
-    //             return response.json();
-    //         })
-    //         // on récupère le résultat et on le passe en argument
-    //         .then(function(data) {
-    //             // console.log(data);
-    //             for (annonce of data) {
-    //                 //console.log(annonce);
-    //                 app.addAnnonceToDom(annonce.id, annonce.ref_annonce, annonce.prix_annonce, annonce.surface_habitable, annonce.nombre_de_piece, annonce.created_at, annonce.updated_at);
-    //             }
-    //         }
-    //     );
-    // },
-
     addAnnonceToDom: function(id, refAnnonce, prixAnnonce, surfaceHabitable, nombreDePiece, createdAt, updatedAt) {
         // récupérer le template d'une annonce
         let template = document.getElementById('template-annonce');
@@ -228,9 +194,6 @@ let app = {
         annonceElement.querySelector('.annonce-updated-at').textContent = updatedAt;
 
         // ajout de la ligne dans le DOM
-        // let parentNode = document.querySelector('.tbody');
-        // newAnnonce.appendChild()
-
         template.parentNode.appendChild(newAnnonce);
     },
 

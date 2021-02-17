@@ -1848,14 +1848,13 @@ var app = {
     document.querySelectorAll('.btn-delete').forEach(function (item) {
       item.addEventListener('click', app.handleDeleteClick);
     });
+    document.querySelectorAll('.btn-edit').forEach(function (item) {
+      item.addEventListener('click', app.handleClickOnEditButton);
+    });
     var addAnnonceForm = document.getElementById('addForm');
     addAnnonceForm.addEventListener('submit', app.handleFormAddSubmit);
     var editAnnonceForm = document.getElementById('editForm');
     editAnnonceForm.addEventListener('submit', app.handleFormEditSubmit);
-    document.querySelectorAll('.btn-edit').forEach(function (item) {
-      item.addEventListener('click', app.handleClickOnEditButton);
-    }); // chargement des annonces
-    // app.loadAnnonces();
   },
   handleDeleteClick: function handleDeleteClick(evt) {
     console.log('click delete');
@@ -1896,7 +1895,8 @@ var app = {
       var template = document.getElementById('template-annonce'); // cloner le contenu du template
 
       var newAnnonce = template.content.cloneNode(true);
-      var annonceElement = newAnnonce.querySelector('.line-template'); // affichage des données de l'annonce
+      var annonceElement = newAnnonce.querySelector('.line-template'); // console.log(annonceElement);
+      // affichage des données de l'annonce
 
       annonceElement.querySelector('.annonce-id').textContent = data.id;
       annonceElement.querySelector('.annonce-ref').textContent = data.ref_annonce;
@@ -1904,7 +1904,19 @@ var app = {
       annonceElement.querySelector('.annonce-surface').textContent = data.surface_habitable;
       annonceElement.querySelector('.annonce-piece').textContent = data.nombre_de_piece;
       annonceElement.querySelector('.annonce-created-at').textContent = data.created_at;
-      annonceElement.querySelector('.annonce-updated-at').textContent = data.updated_at;
+      annonceElement.querySelector('.annonce-updated-at').textContent = data.updated_at; // ajout des dataset
+
+      annonceElement.setAttribute('data-id', data.id); // ajout des liens dans le boutons edit et delete
+
+      var editButton = annonceElement.querySelector('.btn-edit');
+      var editRoute = "http://localhost:8000/api/annonces/";
+      editButton.href = editRoute + data.id;
+      var deleteButton = annonceElement.querySelector('.btn-delete');
+      var deleteRoute = "http://localhost:8000/api/annonces/delete/";
+      deleteButton.href = deleteRoute + data.id; // ajout des eventListeners sur les nouveaux boutons
+
+      deleteButton.addEventListener('click', app.handleDeleteClick);
+      editButton.addEventListener('click', app.handleClickOnEditButton);
       var tableBody = document.querySelector('tbody'); // on récupère la première lige du tableau
 
       var firstChild = tableBody.firstElementChild; // ajout du clone dans le DOM avant le firstChild pour la nouvelle annonce s'affiche tout en haut
@@ -1941,19 +1953,7 @@ var app = {
       lineToEdit.querySelector('[data-prix=prix]').textContent = data.prix_annonce;
       lineToEdit.querySelector('[data-surface=surface]').textContent = data.surface_habitable;
       lineToEdit.querySelector('[data-piece=piece]').textContent = data.nombre_de_piece;
-      lineToEdit.querySelector('[data-updated=updated-at]').textContent = data.updated_at; // récupérer le template d'une annonce
-      // let template = document.getElementById('template-annonce');
-      // cloner le contenu du template
-      // let newAnnonce = template.content.cloneNode(true);
-      // let annonceElement = newAnnonce.querySelector('.line-template');
-      // affichage des données de l'annonce
-      // annonceElement.querySelector('.annonce-id').textContent = data.id;
-      // annonceElement.querySelector('.annonce-ref').textContent = data.ref_annonce;
-      // annonceElement.querySelector('.annonce-prix').textContent = data.prix_annonce;
-      // annonceElement.querySelector('.annonce-surface').textContent = data.surface_habitable;
-      // annonceElement.querySelector('.annonce-piece').textContent = data.nombre_de_piece;
-      // annonceElement.querySelector('.annonce-created-at').textContent = data.created_at;
-      // annonceElement.querySelector('.annonce-updated-at').textContent = data.updated_at;
+      lineToEdit.querySelector('[data-updated=updated-at]').textContent = data.updated_at;
     });
   },
   handleClickOnEditButton: function handleClickOnEditButton(event) {
@@ -1978,34 +1978,6 @@ var app = {
       var annonceId = document.querySelector('#editForm input.annonce-id').value = data.id;
     });
   },
-  // loadAnnonces: function() {
-  //     console.log('load annonces');
-  //
-  //     // préparation de la configuration de la requête HTTP
-  //     let config = {
-  //         method: 'GET',
-  //         mode: 'cors',
-  //         cache: 'no-cache'
-  //     };
-  //
-  //     // déclenchement de la requête HTTP avec AJAX
-  //     fetch('http://localhost:8000/api/annonces', config)
-  //         // on reçoit la réponse en JSON
-  //         .then(function(response) {
-  //             // console.log(response);
-  //             // on convertit la réponse en un objet JS
-  //             return response.json();
-  //         })
-  //         // on récupère le résultat et on le passe en argument
-  //         .then(function(data) {
-  //             // console.log(data);
-  //             for (annonce of data) {
-  //                 //console.log(annonce);
-  //                 app.addAnnonceToDom(annonce.id, annonce.ref_annonce, annonce.prix_annonce, annonce.surface_habitable, annonce.nombre_de_piece, annonce.created_at, annonce.updated_at);
-  //             }
-  //         }
-  //     );
-  // },
   addAnnonceToDom: function addAnnonceToDom(id, refAnnonce, prixAnnonce, surfaceHabitable, nombreDePiece, createdAt, updatedAt) {
     // récupérer le template d'une annonce
     var template = document.getElementById('template-annonce'); // cloner le contenu du template
@@ -2020,8 +1992,6 @@ var app = {
     annonceElement.querySelector('.annonce-piece').textContent = nombreDePiece;
     annonceElement.querySelector('.annonce-created-at').textContent = createdAt;
     annonceElement.querySelector('.annonce-updated-at').textContent = updatedAt; // ajout de la ligne dans le DOM
-    // let parentNode = document.querySelector('.tbody');
-    // newAnnonce.appendChild()
 
     template.parentNode.appendChild(newAnnonce);
   },

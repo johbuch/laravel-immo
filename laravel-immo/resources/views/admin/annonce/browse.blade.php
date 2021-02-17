@@ -49,7 +49,6 @@
                         <td data-updated="updated-at">{{ $annonce->updated_at }}</td>
                         <td>
                             <a href="{{ route('api_annonces_show', $annonce->id) }}" data-toggle="modal" data-target="#editAnnonceModal" class="btn btn-primary btn-edit"><i class="fas fa-edit"></i></a>
-{{--                            <a href="{{ route('admin_annonces_edit', $annonce->id) }}" class="main__action btn btn-primary"><i class="fas fa-edit"></i></a>--}}
                             <a href="{{ route('api_annonces_delete', $annonce->id) }}" class="main__action btn btn-danger btn-delete"><i class="fas fa-trash-alt"></i></a>
                         </td>
                     </tr>
@@ -57,17 +56,17 @@
             @endif
 
             <template id="template-annonce">
-                <tr class="table-light line-template">
+                <tr class="table-light line-template" data-id="">
                     <th scope="row" class="annonce-id"></th>
-                    <td class="annonce-ref"></td>
-                    <td class="annonce-prix"></td>
-                    <td class="annonce-surface"></td>
-                    <td class="annonce-piece"></td>
-                    <td class="annonce-created-at"></td>
-                    <td class="annonce-updated-at"></td>
+                    <td class="annonce-ref" data-ref="ref"></td>
+                    <td class="annonce-prix" data-prix="prix"></td>
+                    <td class="annonce-surface" data-surface="surface"></td>
+                    <td class="annonce-piece" data-piece="piece"></td>
+                    <td class="annonce-created-at" data-created="created-at" ></td>
+                    <td class="annonce-updated-at" data-updated="updated-at"></td>
                     <td>
-                        <a href="{{ route('api_annonces_show', $annonce->id) }}" data-toggle="modal" data-target="#editAnnonceModal" class="btn btn-primary btn-edit"><i class="fas fa-edit"></i></a>
-                        <a href="{{ route('api_annonces_delete', $annonce->id) }}" class="main__action btn btn-danger btn-delete"><i class="fas fa-trash-alt"></i></a>
+                        <a href="" data-toggle="modal" data-target="#editAnnonceModal" class="btn btn-primary btn-edit"><i class="fas fa-edit"></i></a>
+                        <a href="" class="main__action btn btn-danger btn-delete"><i class="fas fa-trash-alt"></i></a>
                     </td>
                 </tr>
             </template>
