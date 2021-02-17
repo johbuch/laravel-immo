@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Annonce;
 use Illuminate\Http\Request;
+use App\Http\Resources\Annonce as AnnonceResource;
 
 class AnnonceController extends Controller
 {
@@ -17,29 +18,17 @@ class AnnonceController extends Controller
         // du paquet Kyslik/column-sortable
 //        $annonces = Annonce::sortable('id')->paginate(15);
 
-
         $annonces = Annonce::all()->sortByDesc('id');
-
-        return view('admin.annonce.browse', compact('annonces'));
-    }
-
-    /**
-     * affiche le formulaire d'ajout
-     */
-    public function add()
-    {
-        return view('admin.annonce.add');
+//        return response()->json($annonces);
+        return new AnnonceResource($annonces);
     }
 
     /**
      * ajout de l'annonce en BDD
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        // dd($request->input('ref_annonce'));
-
         // validation des données
         $validated = $request->validate([
             'ref_annonce' => 'required',
@@ -57,28 +46,15 @@ class AnnonceController extends Controller
 
         $annonce->save();
 
-        // redirection
-        return redirect()->route('admin_annonces_browse')->with('success', 'L\'annonce a bien été ajoutée en base de données');
-    }
-
-    /**
-     * affichage du formulaire de modification d'une annonce
-     * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function edit($id)
-    {
-        // récupération des données de l'annonce
-        $annonce = Annonce::find($id);
-
-        return view('admin.annonce.edit', compact('annonce'));
+//        return response()->json(['message'=> 'annonce ajoutée']);
+        return response()->json($annonce);
+//        return new AnnonceResource($annonce);
     }
 
     /**
      * modification d'une annonce existante
      * @param Request $request
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
@@ -91,7 +67,7 @@ class AnnonceController extends Controller
         ]);
 
         // mise à jour de l'annonce en bdd si les données précédentes sont validées
-        $annonce = Annonce::find($id);
+        $annonce = Annonce::findOrFail($id);
 
         $annonce->ref_annonce = $request->input('ref_annonce');
         $annonce->prix_annonce = $request->input('prix_annonce');
@@ -100,21 +76,23 @@ class AnnonceController extends Controller
 
         $annonce->save();
 
-        // redirection
-        return redirect()->route('admin_annonces_browse')->with('success', 'L\'annonce a bien été modifiée en base de données');
+//        return new AnnonceResource($annonce);
+        return response()->json($annonce);
     }
 
     /**
      * Suppression d'une annonce
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function delete($id)
     {
         $annonce = Annonce::findOrFail($id);
-
         $annonce->delete();
 
-        return redirect()->route('admin_annonces_browse')->with('success', 'L\'annonce a bien été supprimée de la base de données');
+        return response()->json(['message' => 'supprime']);
+
+
+//        return new AnnonceResource($annonce);
+
     }
 }

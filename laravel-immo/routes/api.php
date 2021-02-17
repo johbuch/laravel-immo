@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AnnonceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('annonces', [AnnonceController::class, 'browse'])->name('api_annonces_browse');
+Route::post('annonces/add', [AnnonceController::class, 'store'])->name('api_annonces_add');
+Route::put('annonces/edit/{id}', [AnnonceController::class, 'update'])->name('api_annonces_update');
+Route::delete('annonces/delete/{id}', [AnnonceController::class, 'delete'])->name('api_annonces_delete');
