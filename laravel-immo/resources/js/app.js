@@ -53,11 +53,6 @@ let app = {
 
     handleFormAddSubmit: function(event) {
         event.preventDefault();
-        // récupération des informations du formulaire
-        let refAnnonce = document.querySelector('input.ref-annonce').value;
-        let prixAnnonce = document.querySelector('input.prix-annonce').value;
-        let surfaceHabitable = document.querySelector('input.surface-habitable').value;
-        let nombreDePiece = document.querySelector('input.nombre-de-piece').value;
 
         fetch('http://localhost:8000/api/annonces/add', {
             method: 'POST',
@@ -96,6 +91,10 @@ let app = {
 
                 // ajout du clone dans le DOM avant le firstChild pour la nouvelle annonce s'affiche tout en haut
                 template.parentNode.insertBefore(newAnnonce, firstChild);
+
+                // nettoyage du formulaire
+                let form = document.getElementById('addForm');
+                form.reset();
             });
     },
 

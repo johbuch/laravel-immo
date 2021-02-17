@@ -1880,12 +1880,7 @@ var app = {
     evt.preventDefault();
   },
   handleFormAddSubmit: function handleFormAddSubmit(event) {
-    event.preventDefault(); // récupération des informations du formulaire
-
-    var refAnnonce = document.querySelector('input.ref-annonce').value;
-    var prixAnnonce = document.querySelector('input.prix-annonce').value;
-    var surfaceHabitable = document.querySelector('input.surface-habitable').value;
-    var nombreDePiece = document.querySelector('input.nombre-de-piece').value;
+    event.preventDefault();
     fetch('http://localhost:8000/api/annonces/add', {
       method: 'POST',
       body: JSON.stringify(Object.fromEntries(new FormData(event.target))),
@@ -1914,7 +1909,10 @@ var app = {
 
       var firstChild = tableBody.firstElementChild; // ajout du clone dans le DOM avant le firstChild pour la nouvelle annonce s'affiche tout en haut
 
-      template.parentNode.insertBefore(newAnnonce, firstChild);
+      template.parentNode.insertBefore(newAnnonce, firstChild); // nettoyage du formulaire
+
+      var form = document.getElementById('addForm');
+      form.reset();
     });
   },
   handleFormEditSubmit: function handleFormEditSubmit(event) {
