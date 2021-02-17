@@ -24,6 +24,15 @@ class AnnonceController extends Controller
     }
 
     /**
+     * affiche les détails d'une annonce
+     */
+    public function show($id)
+    {
+        $annonce = Annonce::find($id);
+        return new AnnonceResource($annonce);
+    }
+
+    /**
      * ajout de l'annonce en BDD
      * @param Request $request
      */

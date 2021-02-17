@@ -48,7 +48,7 @@
                         <td>{{ $annonce->created_at }}</td>
                         <td>{{ $annonce->updated_at }}</td>
                         <td>
-                            <a href="javascript:void(0)" data-toggle="modal" data-target="#editAnnonceModal" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                            <a href="{{ route('api_annonces_show', $annonce->id) }}" data-toggle="modal" data-target="#editAnnonceModal" class="btn btn-primary btn-edit"><i class="fas fa-edit"></i></a>
 {{--                            <a href="{{ route('admin_annonces_edit', $annonce->id) }}" class="main__action btn btn-primary"><i class="fas fa-edit"></i></a>--}}
                             <a href="{{ route('api_annonces_delete', $annonce->id) }}" class="main__action btn btn-danger btn-delete"><i class="fas fa-trash-alt"></i></a>
                         </td>
@@ -66,7 +66,7 @@
                     <td class="annonce-created-at"></td>
                     <td class="annonce-updated-at"></td>
                     <td>
-                        <a href="javascript:void(0)" data-toggle="modal" data-target="#editAnnonceModal" class="btn btn-primary">editer</a>
+                        <a href="javascript:void(0)" data-toggle="modal" data-target="#editAnnonceModal" class="btn btn-primary btn-edit">editer</a>
                         <a href="{{ route('admin_annonces_edit', $annonce->id) }}" class="main__action btn btn-primary"><i class="fas fa-edit"></i></a>
                         <a href="{{ route('api_annonces_delete', $annonce->id) }}" class="main__action btn btn-danger btn-delete"><i class="fas fa-trash-alt"></i></a>
                     </td>
@@ -135,25 +135,25 @@
                             @method('PUT')
                             <div class="form-group">
                                 <label for="ref_annonce">Référence annonce</label>
-                                <input type="text" class="form-control" id="ref_annonce" name="ref_annonce" value="{{ $annonce->ref_annonce }}" placeholder="Référence annonce">
+                                <input type="text" class="form-control ref-annonce" id="ref_annonce" name="ref_annonce" value="" placeholder="Référence annonce">
                                 <span class="text-danger">@error('ref_annonce'){{ $message }}@enderror</span>
                             </div>
                             <div class="form-group">
                                 <label for="prix_annonce">Prix</label>
-                                <input type="number" step="0.01" class="form-control" id="prix_annonce" name="prix_annonce" value="{{ $annonce->prix_annonce }}" placeholder="Prix">
+                                <input type="number" step="0.01" class="form-control prix-annonce" id="prix_annonce" name="prix_annonce" value="" placeholder="Prix">
                                 <span class="text-danger">@error('prix_annonce'){{ $message }}@enderror</span>
                             </div>
                             <div class="form-group">
                                 <label for="surface_habitable">Surface habitable (en m²)</label>
-                                <input type="number" step="0.01" class="form-control" id="surface_habitable" name="surface_habitable" value="{{ $annonce->surface_habitable }}" placeholder="Surface habitable">
+                                <input type="number" step="0.01" class="form-control surface-habitable" id="surface_habitable" name="surface_habitable" value="" placeholder="Surface habitable">
                                 <span class="text-danger">@error('surface_habitable'){{ $message }}@enderror</span>
                             </div>
                             <div class="form-group">
                                 <label for="nombre_de_piece">Nombre de pièce</label>
-                                <input type="number" class="form-control" id="nombre_de_piece" name="nombre_de_piece" value="{{ $annonce->nombre_de_piece }}" placeholder="Nombre de pièce">
+                                <input type="number" class="form-control nombre-de-piece" id="nombre_de_piece" name="nombre_de_piece" value="" placeholder="Nombre de pièce">
                                 <span class="text-danger">@error('nombre_de_piece'){{ $message }}@enderror</span>
                             </div>
-                            <input type="hidden" name="id" value="{{ $annonce->id }}">
+                            <input type="hidden" class="annonce-id" name="annonce-id" value="">
 
                             <button type="submit" class="btn btn-primary">Modifier</button>
                         </form>

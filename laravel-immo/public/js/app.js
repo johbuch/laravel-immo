@@ -1851,7 +1851,10 @@ var app = {
     var addAnnonceForm = document.getElementById('addForm');
     addAnnonceForm.addEventListener('submit', app.handleFormAddSubmit);
     var editAnnonceForm = document.getElementById('editForm');
-    editAnnonceForm.addEventListener('submit', app.handleFormEditSubmit); // chargement des annonces
+    editAnnonceForm.addEventListener('submit', app.handleFormEditSubmit);
+    document.querySelectorAll('.btn-edit').forEach(function (item) {
+      item.addEventListener('click', app.handleClickOnEditButton);
+    }); // chargement des annonces
     // app.loadAnnonces();
   },
   handleDeleteClick: function handleDeleteClick(evt) {
@@ -1913,6 +1916,61 @@ var app = {
   },
   handleFormEditSubmit: function handleFormEditSubmit(event) {
     event.preventDefault(); // récupération des informations du formulaire
+
+    var refAnnonce = document.querySelector('input.ref-annonce').value;
+    var prixAnnonce = document.querySelector('input.prix-annonce').value;
+    var surfaceHabitable = document.querySelector('input.surface-habitable').value;
+    var nombreDePiece = document.querySelector('input.nombre-de-piece').value;
+    var annonceId = document.querySelector('#editForm input.annonce-id').value;
+    fetch('http://localhost:8000/api/annonces/edit/' + annonceId, {
+      method: 'PUT',
+      body: JSON.stringify(Object.fromEntries(new FormData(event.target))),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    }).then(function (response) {
+      // console.log(response);
+      return response.json();
+    }).then(function (data) {
+      console.log(data.created_at); // récupérer le template d'une annonce
+
+      var template = document.getElementById('template-annonce'); // cloner le contenu du template
+
+      var newAnnonce = template.content.cloneNode(true);
+      var annonceElement = newAnnonce.querySelector('.line-template'); // affichage des données de l'annonce
+
+      annonceElement.querySelector('.annonce-id').textContent = data.id;
+      annonceElement.querySelector('.annonce-ref').textContent = data.ref_annonce;
+      annonceElement.querySelector('.annonce-prix').textContent = data.prix_annonce;
+      annonceElement.querySelector('.annonce-surface').textContent = data.surface_habitable;
+      annonceElement.querySelector('.annonce-piece').textContent = data.nombre_de_piece;
+      annonceElement.querySelector('.annonce-created-at').textContent = data.created_at;
+      annonceElement.querySelector('.annonce-updated-at').textContent = data.updated_at; // ajout du clone dans le DOM
+
+      template.parentNode.appendChild(newAnnonce);
+    });
+  },
+  handleClickOnEditButton: function handleClickOnEditButton(event) {
+    // console.log('click edit');
+    var element = event.currentTarget; // console.log(element);
+
+    var url = element.href; // console.log(url);
+
+    var config = {
+      method: 'GET'
+    };
+    fetch(url, config).then(function (response) {
+      // console.log(response);
+      return response.json();
+    }).then(function (data) {
+      // console.log(data);
+      // je pré-rempli les champs du formulaire avec les données de l'annonce
+      var refAnnonce = document.querySelector('#editForm input.ref-annonce').value = data.ref_annonce;
+      var prixAnnonce = document.querySelector('#editForm input.prix-annonce').value = data.prix_annonce;
+      var surfaceHabitable = document.querySelector('#editForm input.surface-habitable').value = data.surface_habitable;
+      var nombreDePiece = document.querySelector('#editForm input.nombre-de-piece').value = data.nombre_de_piece;
+      var annonceId = document.querySelector('#editForm input.annonce-id').value = data.id;
+    });
   },
   // loadAnnonces: function() {
   //     console.log('load annonces');
