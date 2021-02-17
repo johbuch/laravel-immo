@@ -1896,8 +1896,8 @@ var app = {
       // console.log(response);
       return response.json();
     }).then(function (data) {
-      console.log(data.created_at); // récupérer le template d'une annonce
-
+      // console.log(data.created_at);
+      // récupérer le template d'une annonce
       var template = document.getElementById('template-annonce'); // cloner le contenu du template
 
       var newAnnonce = template.content.cloneNode(true);
@@ -1909,9 +1909,12 @@ var app = {
       annonceElement.querySelector('.annonce-surface').textContent = data.surface_habitable;
       annonceElement.querySelector('.annonce-piece').textContent = data.nombre_de_piece;
       annonceElement.querySelector('.annonce-created-at').textContent = data.created_at;
-      annonceElement.querySelector('.annonce-updated-at').textContent = data.updated_at; // ajout du clone dans le DOM
+      annonceElement.querySelector('.annonce-updated-at').textContent = data.updated_at;
+      var tableBody = document.querySelector('tbody'); // on récupère la première lige du tableau
 
-      template.parentNode.appendChild(newAnnonce);
+      var firstChild = tableBody.firstElementChild; // ajout du clone dans le DOM avant le firstChild pour la nouvelle annonce s'affiche tout en haut
+
+      template.parentNode.insertBefore(newAnnonce, firstChild);
     });
   },
   handleFormEditSubmit: function handleFormEditSubmit(event) {

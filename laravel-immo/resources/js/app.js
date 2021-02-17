@@ -71,7 +71,7 @@ let app = {
                 return response.json();
             })
             .then (function (data) {
-                console.log(data.created_at);
+                // console.log(data.created_at);
 
                 // récupérer le template d'une annonce
                 let template = document.getElementById('template-annonce');
@@ -90,8 +90,12 @@ let app = {
                 annonceElement.querySelector('.annonce-created-at').textContent = data.created_at;
                 annonceElement.querySelector('.annonce-updated-at').textContent = data.updated_at;
 
-                // ajout du clone dans le DOM
-                template.parentNode.appendChild(newAnnonce);
+                let tableBody = document.querySelector('tbody');
+                // on récupère la première lige du tableau
+                let firstChild = tableBody.firstElementChild;
+
+                // ajout du clone dans le DOM avant le firstChild pour la nouvelle annonce s'affiche tout en haut
+                template.parentNode.insertBefore(newAnnonce, firstChild);
             });
     },
 

@@ -66,8 +66,7 @@
                     <td class="annonce-created-at"></td>
                     <td class="annonce-updated-at"></td>
                     <td>
-                        <a href="javascript:void(0)" data-toggle="modal" data-target="#editAnnonceModal" class="btn btn-primary btn-edit">editer</a>
-                        <a href="{{ route('admin_annonces_edit', $annonce->id) }}" class="main__action btn btn-primary"><i class="fas fa-edit"></i></a>
+                        <a href="{{ route('api_annonces_show', $annonce->id) }}" data-toggle="modal" data-target="#editAnnonceModal" class="btn btn-primary btn-edit"><i class="fas fa-edit"></i></a>
                         <a href="{{ route('api_annonces_delete', $annonce->id) }}" class="main__action btn btn-danger btn-delete"><i class="fas fa-trash-alt"></i></a>
                     </td>
                 </tr>
