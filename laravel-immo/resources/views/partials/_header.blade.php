@@ -11,6 +11,16 @@
                     <a class="menu__list__item nav-link" href="{{ route('admin_annonces_browse') }}">Administration</a>
                 </li>
             </ul>
+            @guest
+                <a href="{{ route('login') }}" class="btn btn-info">Se connecter</a>
+            @endguest
+            @auth
+                <div>Connecté en tant que {{ Auth::user()->name }}</div>
+                <form action="{{ route('logout') }}" method="POST" class="ml-2">
+                    @csrf
+                    <button type="submit" class="btn btn-info">Logout</button>
+                </form>
+            @endauth
         </div>
     </nav>
 </header>
