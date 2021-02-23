@@ -24,7 +24,7 @@ Route::prefix('')->group(function() {
 
 // ADMIN pour le crud Annonce
 Route::prefix('admin/annonces')->group(function() {
-    Route::name('admin_annonces_')->group(function() {
+    Route::name('admin_annonces_')->group(function () {
         // page index
         Route::get('/', [AnnonceController::class, 'browse'])->name('browse');
         // page add
@@ -38,3 +38,8 @@ Route::prefix('admin/annonces')->group(function() {
     });
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
