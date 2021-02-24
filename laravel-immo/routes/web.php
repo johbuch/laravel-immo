@@ -22,19 +22,22 @@ Route::prefix('')->group(function() {
     });
 });
 
+// ajout du middle auth pour empêcher l'accès à la partie administration des visiteurs anonymes
+Route::group(['middleware' => ['auth']], function() {
 // ADMIN pour le crud Annonce
-Route::prefix('admin/annonces')->group(function() {
-    Route::name('admin_annonces_')->group(function () {
-        // page index
-        Route::get('/', [AnnonceController::class, 'browse'])->name('browse');
-        // page add
-        Route::get('/add', [AnnonceController::class, 'add'])->name('add');
-        Route::post('/add', [AnnonceController::class, 'store'])->name('store');
-        // page edit
-        Route::get('/edit/{id}', [AnnonceController::class, 'edit'])->name('edit');
-        Route::patch('/edit/{id}', [AnnonceController::class, 'update'])->name('update');
-        // page delete
-        Route::delete('/delete/{id}', [AnnonceController::class, 'delete'])->name('delete');
+    Route::prefix('admin/annonces')->group(function () {
+        Route::name('admin_annonces_')->group(function () {
+            // page index
+            Route::get('/', [AnnonceController::class, 'browse'])->name('browse');
+            // page add
+            Route::get('/add', [AnnonceController::class, 'add'])->name('add');
+            Route::post('/add', [AnnonceController::class, 'store'])->name('store');
+            // page edit
+            Route::get('/edit/{id}', [AnnonceController::class, 'edit'])->name('edit');
+            Route::patch('/edit/{id}', [AnnonceController::class, 'update'])->name('update');
+            // page delete
+            Route::delete('/delete/{id}', [AnnonceController::class, 'delete'])->name('delete');
+        });
     });
 });
 

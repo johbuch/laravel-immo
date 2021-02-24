@@ -7,9 +7,11 @@
         </button>
         <div class="nav_menu menu collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="menu__list navbar-nav">
+                @auth
                 <li class=" nav-item">
                     <a class="menu__list__item nav-link" href="{{ route('admin_annonces_browse') }}">Administration</a>
                 </li>
+                @endauth
             </ul>
             @guest
                 <a href="{{ route('login') }}" class="btn btn-info">Se connecter</a>
